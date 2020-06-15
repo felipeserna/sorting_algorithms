@@ -9,8 +9,8 @@
  */
 void bubble_sort(int *array, size_t size)
 {
-	int flag, aux = 0;
-	size_t i, stop = (size - 1);
+	int flag, aux = 0; /* aux to make the swap */
+	size_t i, stop = (size - 1); /* stop: don't be out of the array */
 
 	if (array == NULL || size < 2)
 		return;
@@ -23,14 +23,14 @@ void bubble_sort(int *array, size_t size)
 			array[i] = array[i + 1];
 			array[i + 1] = aux;
 			print_array(array, size);
-			flag = 1;
+			flag = 1; /* a swap was made */
 		}
-		if (flag == 0 && i == stop - 1)
+		if (flag == 0 && i == stop - 1)  /* everything is in order */
 			return;
-		if (i == (stop - 1) && flag == 1)
+		if (i == (stop - 1) && flag == 1)   /* last position */
 		{
-			i = -1;
-			stop--;
+			i = -1;    /* start from the beginning */
+			stop--;   /* the last elements are in order */
 		}
 	}
 }
