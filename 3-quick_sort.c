@@ -14,32 +14,36 @@ size_t partition(int *array, size_t size, int *array_2, size_t size_2)
 
 	for (j = 0; j < size_2; j++)
 	{
-		if (array_2[j] <= array_2[pivot] && array_2[i] > array_2[pivot])
+		/* searching for one greater and one lesser than the pivot */
+		if (array_2[j] <= array_2[pivot] &&
+		    array_2[i] > array_2[pivot])
 		{
+			/* swap */
 			aux = array_2[i];
 			array_2[i] = array_2[j];
 			array_2[j] = aux;
-			i++;
+			i++; /* advances with swap between i and j */
 			print_array(array, size);
 		}
-		if (array_2[j] <= array_2[pivot] && array_2[i] <= array_2[pivot])
+		if (array_2[j] <= array_2[pivot] &&
+		    array_2[i] <= array_2[pivot])
 		{
-			i++;
+			i++; /* advances when smaller than pivot */
 		}
 	}
 	if (array_2[pivot] < array_2[i])
 	{
+		/* swap */
 		aux = array_2[i];
 		array_2[i] = array_2[pivot];
 		array_2[pivot] = aux;
 		print_array(array, size);
 	}
-	return (i);
+	return (i); /* final position of the pivot */
 }
 
 /**
- * low_high - sorts an array of integers in ascending
- * order using the Quick sort algorithm.
+ * quick_recursion - iterates through each sub-array.
  * @array: array of integers.
  * @size: size of the array.
  * @array_2: copy of the original array.
@@ -50,12 +54,14 @@ void quick_recursion(int *array, size_t size, int *array_2, size_t size_2)
 {
 	size_t pivot;
 
-	if (size_2 > 1)
+	if (size_2 > 1) /* sorts arrays with more than one element */
 	{
 		pivot = partition(array, size, array_2, size_2 - 1);
-		/*printf("pivot is %d\n", (int)pivot);*/
-		low_high(array, size, array_2, pivot);
-		low_high(array, size, array_2 + pivot + 1, size_2 - pivot - 1); /* right */
+		/* left array */
+		quick_recursion(array, size, array_2, pivot);
+		/* right array */
+		quick_recursion(array, size,
+				array_2 + pivot + 1, size_2 - pivot - 1);
 	}
 }
 
@@ -68,5 +74,5 @@ void quick_recursion(int *array, size_t size, int *array_2, size_t size_2)
  */
 void quick_sort(int *array, size_t size)
 {
-	low_high(array, size, array, size);
+	quick_recursion(array, size, array, size);
 }
