@@ -2,34 +2,36 @@
 
 /**
  * partition - puts the pivot in the appropriate position
- * @array: array of integers
- * @size: size of the array
+ * @array: array of integers.
+ * @size: size of the array.
+ * @array_2: a copy of the original array.
+ * @size_2: size of the array_2
  * Return: the pivot
  */
-size_t partition(int *array, size_t size, size_t low, size_t high)
+size_t partition(int *array, size_t size, int *array_2, size_t size_2)
 {
-	size_t i = low, j, aux, pivot = high;
+	size_t i = 0, j, aux, pivot = size_2;
 
-	for (j = low; j < high; j++)
+	for (j = 0; j < size_2; j++)
 	{
-		if (array[j] <= array[pivot] && array[i] > array[pivot])
+		if (array_2[j] <= array_2[pivot] && array_2[i] > array_2[pivot])
 		{
-			aux = array[i];
-			array[i] = array[j];
-			array[j] = aux;
+			aux = array_2[i];
+			array_2[i] = array_2[j];
+			array_2[j] = aux;
 			i++;
 			print_array(array, size);
 		}
-		if (array[j] <= array[pivot] && array[i] <= array[pivot])
+		if (array_2[j] <= array_2[pivot] && array_2[i] <= array_2[pivot])
 		{
 			i++;
 		}
 	}
-	if (array[pivot] < array[i])
+	if (array_2[pivot] < array_2[i])
 	{
-		aux = array[i];
-		array[i] = array[pivot];
-		array[pivot] = aux;
+		aux = array_2[i];
+		array_2[i] = array_2[pivot];
+		array_2[pivot] = aux;
 		print_array(array, size);
 	}
 	return (i);
@@ -38,22 +40,22 @@ size_t partition(int *array, size_t size, size_t low, size_t high)
 /**
  * low_high - sorts an array of integers in ascending
  * order using the Quick sort algorithm.
- * @array: array of integers
- * @size: size of the array
+ * @array: array of integers.
+ * @size: size of the array.
+ * @array_2: copy of the original array.
+ * @size_2: size of the array_2.
  * Return: void
  */
-void low_high(int *array, size_t size, size_t low, size_t high)
+void quick_recursion(int *array, size_t size, int *array_2, size_t size_2)
 {
 	size_t pivot;
 
-
-	if (size > 1 )
+	if (size_2 > 1)
 	{
-		pivot = partition(array, size, low, high);
-		low = size - 1 - pivot;
+		pivot = partition(array, size, array_2, size_2 - 1);
 		/*printf("pivot is %d\n", (int)pivot);*/
-		low_high(array, size, low + 1, pivot - 1); /* left array */
-		low_high(array, size, pivot + 1, high - 1); /* right */
+		low_high(array, size, array_2, pivot);
+		low_high(array, size, array_2 + pivot + 1, size_2 - pivot - 1); /* right */
 	}
 }
 
@@ -66,7 +68,5 @@ void low_high(int *array, size_t size, size_t low, size_t high)
  */
 void quick_sort(int *array, size_t size)
 {
-	size_t low = 0, high = size - 1;
-
-	low_high(array, size, low, high);
+	low_high(array, size, array, size);
 }
