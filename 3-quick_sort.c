@@ -8,9 +8,9 @@
  */
 size_t partition(int *array, size_t size, size_t low, size_t high)
 {
-	size_t i = 0, j, aux, pivot = size - 1;
+	size_t i = low, j, aux, pivot = high;
 
-	for (j = 0; j < pivot; j++)
+	for (j = low; j < high; j++)
 	{
 		if (array[j] <= array[pivot] && array[i] > array[pivot])
 		{
@@ -52,8 +52,8 @@ void low_high(int *array, size_t size, size_t low, size_t high)
 		pivot = partition(array, size, low, high);
 		low = size - 1 - pivot;
 		/*printf("pivot is %d\n", (int)pivot);*/
-		quick_sort(array, pivot); /* left array */
-		quick_sort(array + pivot + 1, size - 1 - pivot); /* right */
+		low_high(array, size, low + 1, pivot - 1); /* left array */
+		low_high(array, size, pivot + 1, high - 1); /* right */
 	}
 }
 
