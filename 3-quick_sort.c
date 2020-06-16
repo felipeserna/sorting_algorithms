@@ -44,7 +44,7 @@ size_t partition(int *array, size_t size, size_t low, size_t high)
  */
 void low_high(int *array, size_t size, size_t low, size_t high)
 {
-	size_t pivot, low = 0, high;
+	size_t pivot;
 
 
 	if (size > 1 )
