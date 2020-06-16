@@ -34,3 +34,17 @@ size_t partition(int *array, size_t size, size_t low, size_t high)
         }
         return (i);
 }
+
+/**
+ * quick_sort - sorts an array of integers in ascending
+ * order using the Quick sort algorithm.
+ * @array: array of integers
+ * @size: size of the array
+ * Return: void
+ */
+void quick_sort(int *array, size_t size)
+{
+        size_t low = 0, high = size - 1;
+
+        low_high(array, size, low, high);
+}
